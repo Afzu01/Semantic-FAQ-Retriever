@@ -20,8 +20,8 @@ uvicorn app.main:app --reload
 
 Open: http://127.0.0.1:8000/docs
 
-## Why this project helps internship applications
+## Future Improvements
 
-- Demonstrates domain-specific embedding extraction workflow
-- Shows practical retrieval implementation with ML libraries
-- Easy to explain in interviews with clear architecture
+- Add persistent storage for larger FAQ collections
+- Add query logging and analytics for relevance tuning
+- Upgrade to a hybrid retrieval strategy for better ranking quality
