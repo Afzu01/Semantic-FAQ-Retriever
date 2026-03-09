@@ -1,0 +1,6 @@
+id,question,answer,domain
+1,How do I reset my password?,Use the forgot password link and follow email steps.,accounts
+2,How can I update billing details?,Open billing settings and edit your payment method.,billing
+3,How to connect webhook to API?,Create endpoint URL and register it in the workflow tool.,integrations
+4,What is cosine similarity?,It measures similarity between vectors by angle.,ml
+5,How do embeddings help retrieval?,Embeddings map text into vectors for semantic matching.,ai
