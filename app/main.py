@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -9,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 class QueryRequest(BaseModel):
     query: str = Field(..., min_length=2)
-    top_k: int = Field(default=3, ge=1, le=10)
+    top_k: int = Field(default=3, ge=1, le=20)
 
 
 faq_path = Path(__file__).resolve().parent.parent / "data" / "faq.csv"
@@ -19,11 +20,17 @@ vectorizer = TfidfVectorizer(stop_words="english")
 matrix = vectorizer.fit_transform(faq_df["text"])
 
 app = FastAPI(title="Semantic FAQ Retriever", version="1.0.0")
+UI_FILE = Path(__file__).resolve().parent.parent / "ui" / "index.html"
 
 
 @app.get("/")
 def root() -> dict:
-    return {"message": "Semantic FAQ Retriever", "docs": "/docs"}
+    return {"message": "Semantic FAQ Retriever", "docs": "/docs", "ui": "/ui"}
+
+
+@app.get("/ui")
+def ui() -> FileResponse:
+    return FileResponse(UI_FILE)
 
 
 @app.post("/search")

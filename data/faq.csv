@@ -1,6 +1,21 @@
 id,question,answer,domain
-1,How do I reset my password?,Use the forgot password link and follow email steps.,accounts
-2,How can I update billing details?,Open billing settings and edit your payment method.,billing
-3,How to connect webhook to API?,Create endpoint URL and register it in the workflow tool.,integrations
-4,What is cosine similarity?,It measures similarity between vectors by angle.,ml
-5,How do embeddings help retrieval?,Embeddings map text into vectors for semantic matching.,ai
+1,"How do I reset my password?","Use the forgot password link and follow email verification steps.",accounts
+2,"How can I update billing details?","Open billing settings and update your payment method.",billing
+3,"How to connect webhook to API?","Create an endpoint URL and register it in your workflow tool.",integrations
+4,"What is cosine similarity?","It measures similarity between vectors by using the angle between them.",ml
+5,"How do embeddings help retrieval?","Embeddings convert text into vectors for semantic matching.",ai
+6,"How do I change my account email?","Go to profile settings and update your email address.",accounts
+7,"How to cancel a subscription?","Open billing page and click cancel subscription before renewal date.",billing
+8,"How do I retry failed webhook events?","Enable retry policy in your orchestrator and requeue failed events.",integrations
+9,"What is TF-IDF?","TF-IDF weighs terms by frequency in a document and rarity across documents.",ml
+10,"What is a vector database?","A vector database stores embeddings and supports similarity search queries.",ai
+11,"How do I update my profile picture?","Go to account profile and upload a new image file.",accounts
+12,"How to download invoices?","In billing history select the invoice and click download PDF.",billing
+13,"How to secure webhook endpoints?","Use signatures, secret tokens, HTTPS, and request validation.",integrations
+14,"What is overfitting in machine learning?","Overfitting happens when a model memorizes training data and generalizes poorly.",ml
+15,"What is retrieval augmented generation?","RAG combines retrieval results with language model generation for grounded answers.",ai
+16,"How do I enable two-factor authentication?","Open security settings and activate two-factor authentication with an app.",accounts
+17,"How do I change my billing currency?","If supported, choose preferred currency in billing preferences.",billing
+18,"How do I test webhooks locally?","Use local tunneling tools and send test payloads to your endpoint.",integrations
+19,"What is precision and recall?","Precision measures correctness of positives and recall measures coverage of positives.",ml
+20,"How to choose embedding model?","Pick a model based on domain language, latency budget, and retrieval quality metrics.",ai

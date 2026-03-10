@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semantic FAQ Retriever UI</title>
+  <style>
+    :root {
+      --bg: #070b16;
+      --ink: #eef5ff;
+      --muted: #b6c5de;
+      --panel: rgba(255,255,255,0.08);
+      --line: rgba(255,255,255,0.2);
+      --brand: #44ddff;
+      --brand2: #53f0ba;
+      --warn: #ffbc66;
+      --shadow: 0 18px 42px rgba(0,0,0,0.45);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 20%, #1a3068 0%, transparent 36%),
+        radial-gradient(circle at 88% 78%, #18453f 0%, transparent 42%),
+        var(--bg);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1080px; margin: 30px auto; padding: 0 16px 22px; }
+    .hero {
+      border-radius: 18px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: var(--shadow);
+      background: linear-gradient(130deg, rgba(29,67,138,0.78), rgba(24,118,104,0.75));
+      backdrop-filter: blur(8px);
+    }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    .sub { margin: 0; color: #d8ebff; line-height: 1.5; }
+    .chips { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1px solid rgba(84,217,254,0.5);
+      background: rgba(84,217,254,0.14);
+      color: #bff4ff;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .grid { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .card h2 { margin: 0 0 10px; font-size: 18px; }
+    label { display: block; margin: 8px 0 5px; color: var(--muted); font-size: 12px; }
+    input, textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.94);
+      color: #15243f;
+      padding: 9px 10px;
+      font-size: 14px;
+    }
+    textarea { min-height: 96px; resize: vertical; }
+    button {
+      margin-top: 10px;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(120deg, var(--brand), var(--brand2));
+      color: #0a2942;
+    }
+    .mono {
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #08152d;
+      color: #d6fff1;
+      min-height: 120px;
+      padding: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      overflow: auto;
+    }
+    .stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      padding: 10px;
+      text-align: center;
+    }
+    .stat .k { font-size: 20px; font-weight: 800; }
+    .stat .l { font-size: 12px; color: var(--muted); }
+    .result-list { margin-top: 10px; display: grid; gap: 9px; }
+    .result-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(255,255,255,0.06);
+    }
+    .domain {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,188,102,0.45);
+      background: rgba(255,188,102,0.15);
+      color: #ffd9a9;
+    }
+    .score { color: #aefce5; font-size: 12px; }
+    a { color: #9ec8ff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Semantic FAQ Retriever</h1>
+      <p class="sub">Interactive demo for semantic search and embedding preview. This UI is designed for recruiter demos and technical walkthroughs.</p>
+      <div class="chips">
+        <span class="chip">POST /search</span>
+        <span class="chip">POST /embed</span>
+        <span class="chip"><a href="/docs" target="_blank">Swagger Docs</a></span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Semantic Search</h2>
+        <label>Query</label>
+        <input id="q" value="webhook api integration" />
+        <label>Top K</label>
+        <input id="k" type="number" min="1" max="20" value="3" />
+        <button id="searchBtn">Run /search</button>
+
+        <div class="stat-grid" style="margin-top: 10px;">
+          <div class="stat"><div id="st-total" class="k">0</div><div class="l">Results</div></div>
+          <div class="stat"><div id="st-top" class="k">0.00</div><div class="l">Top Score</div></div>
+          <div class="stat"><div id="st-dom" class="k">-</div><div class="l">Top Domain</div></div>
+          <div class="stat"><div id="st-k" class="k">3</div><div class="l">Top K</div></div>
+        </div>
+
+        <div id="results" class="result-list"></div>
+      </article>
+
+      <article class="card">
+        <h2>Embedding Preview</h2>
+        <label>Text / Query</label>
+        <textarea id="embText">how embeddings help retrieval</textarea>
+        <button id="embedBtn">Run /embed</button>
+        <pre id="embedOut" class="mono">Result will appear here...</pre>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    function renderResults(data) {
+      const box = document.getElementById('results');
+      box.innerHTML = '';
+      const results = data.results || [];
+
+      document.getElementById('st-total').textContent = String(results.length);
+      document.getElementById('st-k').textContent = String(results.length);
+
+      if (results.length === 0) {
+        document.getElementById('st-top').textContent = '0.00';
+        document.getElementById('st-dom').textContent = '-';
+        box.innerHTML = '<div class="result-card">No results found.</div>';
+        return;
+      }
+
+      document.getElementById('st-top').textContent = String(results[0].score);
+      document.getElementById('st-dom').textContent = results[0].domain || '-';
+
+      for (const item of results) {
+        const el = document.createElement('div');
+        el.className = 'result-card';
+        el.innerHTML = `
+          <div style="display:flex; justify-content:space-between; gap:8px; align-items:center;">
+            <strong>${item.question}</strong>
+            <span class="score">score: ${item.score}</span>
+          </div>
+          <div style="margin-top:6px; color:#d8e8ff;">${item.answer}</div>
+          <div style="margin-top:8px;"><span class="domain">${item.domain}</span></div>
+        `;
+        box.appendChild(el);
+      }
+    }
+
+    async function runSearch() {
+      const query = document.getElementById('q').value.trim();
+      const top_k = Number(document.getElementById('k').value || 3);
+      try {
+        const res = await fetch('/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, top_k })
+        });
+        const data = await res.json();
+        renderResults(data);
+      } catch (e) {
+        document.getElementById('results').innerHTML = `<div class="result-card">Error: ${e.message}</div>`;
+      }
+    }
+
+    async function runEmbed() {
+      const query = document.getElementById('embText').value.trim();
+      const out = document.getElementById('embedOut');
+      out.textContent = 'Loading...';
+      try {
+        const res = await fetch('/embed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, top_k: 1 })
+        });
+        const data = await res.json();
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        out.textContent = 'Error: ' + e.message;
+      }
+    }
+
+    document.getElementById('searchBtn').addEventListener('click', runSearch);
+    document.getElementById('embedBtn').addEventListener('click', runEmbed);
+    runSearch();
+  </script>
+</body>
+</html>
