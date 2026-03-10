@@ -15,10 +15,38 @@ I built this project as a lightweight semantic search backend for FAQ data using
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8002
 ```
 
-Open: http://127.0.0.1:8000/docs
+Open after startup (local machine only): [http://127.0.0.1:8002/docs](http://127.0.0.1:8002/docs)
+
+## For Recruiters
+
+- Local API docs: http://127.0.0.1:8002/docs
+- Live deployment URL: add after deployment
+- Suggested screenshots:
+	- docs_home.png
+	- search_response.png
+
+Sample request
+POST /search
+{
+	"query": "webhook api integration",
+	"top_k": 3
+}
+
+Sample response
+{
+	"query": "webhook api integration",
+	"results": [
+		{
+			"id": 3,
+			"question": "How to connect webhook to API?",
+			"domain": "integrations",
+			"score": 0.81
+		}
+	]
+}
 
 ## Future Improvements
 
